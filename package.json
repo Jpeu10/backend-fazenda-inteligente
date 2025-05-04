@@ -29,5 +29,4 @@
   "postinstall": "prisma generate",
   "start": "node server.js",
   "dev": "nodemon server.js"
-}
-}
+} }
