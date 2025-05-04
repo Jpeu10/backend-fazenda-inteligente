@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  email    String   @unique
+  senha    String
+  tipo     UserType
+}
+
+model Mission {
+  id        Int       @id @default(autoincrement())
+  data      DateTime  @default(now())
+  status    String
+  drone_id  String
+  images    Image[]
+  plants    Plant[]
+}
+
+model Image {
+  id                   Int      @id @default(autoincrement())
+  mission_id           Int
+  url                  String
+  resultado_processamento String
+  gps_lat              Float?
+  gps_long             Float?
+
+  mission              Mission  @relation(fields: [mission_id], references: [id])
+}
+
+model Plant {
+  id            Int       @id @default(autoincrement())
+  mission_id    Int
+  localizacao   String
+  status_saude  String
+  tipo_problema String?
+
+  mission       Mission   @relation(fields: [mission_id], references: [id])
+  alerts        Alert[]
+}
+
+model SensorData {
+  id        Int      @id @default(autoincrement())
+  tipo      String
+  valor     Float
+  data_hora DateTime @default(now())
+}
+
+model Alert {
+  id            Int      @id @default(autoincrement())
+  plant_id      Int
+  tipo_alerta   String
+  data_detectada DateTime @default(now())
+
+  plant         Plant    @relation(fields: [plant_id], references: [id])
+}
+
+enum UserType {
+  admin
+  visualizador
+}
