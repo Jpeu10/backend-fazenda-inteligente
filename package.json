@@ -1,29 +1,23 @@
 {
   "name": "fazenda-inteligente-backend",
   "version": "1.0.0",
-  "description": "Backend para Fazenda Inteligente com IA, PDF/Planilha e Railway",
+  "description": "Servidor Node.js para o projeto Fazenda Inteligente",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:generate": "prisma generate",
-    "postinstall": "prisma generate"
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "get-stream": "^6.0.1",
     "multer": "^1.4.5-lts.1",
-    "pg": "^8.10.0",
-    "prisma": "^4.15.0",
-    "jsonwebtoken": "^9.0.0",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^16.0.3",
-    "pdfkit": "^0.13.0",
-    "json2csv": "^5.0.7",
-    "axios": "^1.3.4"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "pdf-lib": "^1.17.1",
+    "prisma": "^5.0.0"
   }
 }
+
 
