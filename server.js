@@ -1,25 +1,21 @@
 require('dotenv').config();
+
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const exportRoutes = require('./routes/export');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
-const authRoutes = require('./routes/auth');
-const imageRoutes = require('./routes/images');
-const missionRoutes = require('./routes/missions');
-const sensorDataRoutes = require('./routes/sensorData');
-const plantRoutes = require('./routes/plants');
-const exportRoutes = require('./routes/export');
+app.use(cors());
+app.use(bodyParser.json());
+app.use('/export', exportRoutes);
 
-// Middleware para parsear JSON
-app.use(express.json());
-
-// Usar rotas modulares
-app.use(authRoutes);
-app.use(imageRoutes);
-app.use(missionRoutes);
-app.use(sensorDataRoutes);
-app.use(plantRoutes);
-app.use(exportRoutes);
+app.get('/', (req, res) => {
+  res.send('Servidor Fazenda Inteligente rodando!');
+});
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
